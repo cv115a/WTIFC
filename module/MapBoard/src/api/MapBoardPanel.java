@@ -217,6 +217,21 @@ public class MapBoardPanel extends JPanel {
             Point start = line.getStart();
             Point end = line.getEnd();
             g2d.drawLine((int)start.x, (int)start.y, (int)end.x, (int)end.y);
+
+            //方位角指示器
+            if(start.distanceTo(end) > 20){
+                int midX = ((int)start.x + (int)end.x) / 2;
+                int midY = ((int)start.y + (int)end.y) / 2;
+
+                String text = line.getAzimuth() + "°";
+
+                g2d.setColor(Color.BLACK);
+                g2d.setFont(new Font("Arial", Font.BOLD, 11));
+                g2d.drawString(text, midX - 12, midY - 2);
+
+                // 恢复画线颜色（重要！）
+                g2d.setColor(LINE_COLOR);
+            }
         }
     }
     private void drawCurrentLine(Graphics2D g2d){
